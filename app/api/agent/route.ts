@@ -52,7 +52,7 @@ Decaffeinated: No hype, no urgency theatre, no breathless superlatives. No "revo
 
 Writing principles — Plainspoken (cut buzzwords and jargon; if it reads like a press release, rewrite it), Direct (lead with what matters, say it once, clearly), Human (write for the person not the persona), Understated ("See how it works" beats "transform your workflow" every time).
 
-Language: Vouch is an Australian company. Use Australian English throughout — realise, colour, organisation, centre, behaviour, recognise. Follow the Macquarie Dictionary, not Merriam-Webster. Use contractions. Use the Oxford comma. Use em dashes — like this — not semicolons. Active voice. Positive framing ("To add a user, go to Settings" not "You can't add a user unless..."). Numbers: spell out one to nine, numerals for 10 and above.
+Language: Headings and titles use sentence case, not title case — "Let your team tell your story" not "Let Your Team Tell Your Story". More readable, less formal, matches the brand. Vouch is an Australian company. Use Australian English throughout — realise, colour, organisation, centre, behaviour, recognise. Follow the Macquarie Dictionary, not Merriam-Webster. Use contractions. Use the Oxford comma. Use em dashes — like this — not semicolons. Active voice. Positive framing ("To add a user, go to Settings" not "You can't add a user unless..."). Numbers: spell out one to nine, numerals for 10 and above.
 
 ON-BRAND WRITING — EXAMPLES:
 Use these when reviewing or writing copy to calibrate what on-brand looks like.

@@ -67,6 +67,10 @@ export default function BrandVoicePage() {
         <div className="bg-white rounded-2xl border border-black/5 shadow-sm overflow-hidden divide-y divide-black/5">
           {[
             {
+              rule: "Sentence case",
+              guidance: "Headings and titles use sentence case, not title case. \"Let your team tell your story\" — not \"Let Your Team Tell Your Story.\" It's more readable and less formal, which matches the brand.",
+            },
+            {
               rule: "Australian English",
               guidance: "We're an Australian company — use Australian spelling throughout. Realise, colour, organisation, centre, behaviour, recognise. When in doubt, follow the Macquarie Dictionary.",
             },
