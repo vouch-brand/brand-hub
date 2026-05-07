@@ -78,29 +78,47 @@ On-brand: "Thousands of talent teams use Vouch to fill roles faster — without 
 Rule: Write like you're on their side, not reporting metrics at them.
 
 FOUNDER VOICE (use when writing or reviewing copy):
-These patterns come from the founder's writing and reflect the authentic Vouch voice:
+These patterns come from the founder's actual writing — Slack updates, LinkedIn posts, team communications — and reflect the authentic Vouch voice.
 
-Structure: Open with a specific observation or product detail. Explain why it matters. End with a question or reflection — never a call-to-action.
+Structure: Open with the headline fact, not the context or setup. Explain why it matters. End with a forward-looking statement — never a call-to-action.
 Sentence length: Short and declarative. No hedging. "This is what X looks like." not "We believe X could potentially...".
 "We" is constant — the team and company are always present, never abstracted.
-Customers are real: drop names naturally ("We had a customer — a recruiter at a mid-size tech company — tell us..."). Avoid vague "users".
-Acknowledge friction: good posts name the problem directly, including internal ones. Authenticity over polish.
+Customers are real: name them specifically. Avoid vague "users" or "customers" without context.
+Acknowledge friction: name the problem directly, including competitive difficulty and internal challenges. Authenticity over polish.
 AI is specific: never "AI-powered" in isolation. Name what it actually does ("Ask Vouch pulls the quote, writes the caption, suggests the hashtags").
-The core belief: authentic human voices beat polished brand content. Every time. This belief should underpin any copy about what Vouch does.
+Numbers are exact: $101,177 not "over $100K". Specificity builds credibility.
+Dry understatement over enthusiasm: "the jokes write themselves" not "this is exciting news".
+Acknowledge the human side: even competitive analysis pauses to note impact on people before moving to opportunity.
+Australian directness: warm but never gushing. Says something real rather than something polished.
+The core belief: authentic human voices beat polished brand content. Every time.
+
+EXAMPLE — market analysis (from a post about a competitor acquisition):
+"The good: the attention on this category is good. Validation that EGC or EB content is strategic and not a nice-to-have, is helpful. Rising tide lifts all boats. The reality: this is very likely a distressed sale dressed up nicely on LinkedIn. That's tough for the individuals involved and it's a common outcome when a business exits under these kinds of circumstances. It also means their customers are about to feel the impact — subpar support, slower product innovation, less focus. Where that leaves us: we're in a very strong position with revenue accelerating, world-class logos continuing to onboard."
+What makes it work: labels sections plainly (The good / The reality / Where that leaves us). Says what others won't. Acknowledges the human cost before moving to competitive position. Ends on fact, not hype.
+
+EXAMPLE — business milestone (from a Q1 update):
+"The headline is that March was our biggest month of all time. We closed USD $101,177 in net new ARR — a new record for the business, and one we should all feel proud of. This doesn't happen without every part of the team executing. Sales closing, CS retaining and expanding, product and engineering building and shipping. It all compounds."
+What makes it work: leads with the fact, not the fanfare. Exact number. Credits the collective not the individual. "It all compounds" — one short sentence that lands.
+
+EXAMPLE — writing about people (from a team farewell):
+"He joined before we had our ICP defined, before the positioning was locked and before a lot of things in the sales org were figured out. He adapted to every shift, backed himself, and got on with it. That's not easy in an early-stage environment and he handled it super well."
+What makes it work: specific about what made it hard and when. Doesn't reach for superlatives — says what the person actually did and how they did it.
 
 Constructions to use:
+"The headline is..."
+"The reality is..."
+"This doesn't happen without..."
+"That's not easy — and [they] handled it well."
 "This is what [X] looks like in [year]."
 "No more [old way]. Just [new way]."
-"What I love most about this is..."
-"That's the problem we're solving."
-"[Specific customer detail] — and it works."
+"[Specific customer or situation] — and it works."
 
 Constructions to avoid:
 "We're excited to announce..."
 "Leveraging AI to..."
 "Cutting-edge" / "game-changing" / "revolutionary"
 "Seamless" / "frictionless" / "effortless" (unless used sparingly and specifically)
-Passive voice. Vague benefit claims without evidence.
+Passive voice. Vague benefit claims without evidence. Rounded numbers when you have the exact figure.
 
 VISUAL LANGUAGE — Motion principles:
 Unhurried: transitions breathe, 200–400ms UI / 500–900ms reveals.
