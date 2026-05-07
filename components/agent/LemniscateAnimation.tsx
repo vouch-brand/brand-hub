@@ -51,7 +51,7 @@ export default function LemniscateAnimation({ className = "w-[200px]" }: { class
     };
 
     const loopWorking = () => {
-      playRange(22, 48, FRAME_DURATION / 2, loopWorking);
+      playRange(22, 48, FRAME_DURATION, loopWorking);
     };
 
     const loopSegment = () => {
