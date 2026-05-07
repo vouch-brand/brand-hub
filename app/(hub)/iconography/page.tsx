@@ -6,8 +6,8 @@ import PageHeader from "@/components/ui/PageHeader";
 import PageNavigation from "@/components/ui/PageNavigation";
 
 const BRAND_MOTIFS = [
-  "1. short-waves-horizontal.svg",
-  "2. wave-lines-landscape.svg",
+  "short-waves-horizontal.svg",
+  "wave-lines-landscape.svg",
 ];
 
 const ICONS = [
