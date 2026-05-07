@@ -165,6 +165,14 @@ function FontCard({ item }: { item: FontItem }) {
   );
 }
 
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/\*(.*?)\*/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/^[-*]\s+/gm, "");
+}
+
 function MessageContent({ content }: { content: string }) {
   const segments = parseContent(content);
 
@@ -174,7 +182,7 @@ function MessageContent({ content }: { content: string }) {
         if (seg.type === "text") {
           return (
             <p key={i} className="text-sm leading-relaxed font-body whitespace-pre-wrap">
-              {seg.content}
+              {stripMarkdown(seg.content)}
             </p>
           );
         }
