@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/ui/PageHeader";
 import PageNavigation from "@/components/ui/PageNavigation";
-import { brand } from "@/content/brand.config";
 
 export const metadata: Metadata = { title: "Brand Voice & Messaging — Vouch Brand Hub" };
 
 export default function BrandVoicePage() {
-  const { voice } = brand;
-
   return (
     <div className="px-4 py-6 md:px-10 md:py-10 max-w-5xl">
       <PageHeader
@@ -23,7 +20,7 @@ export default function BrandVoicePage() {
           <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.2"/>
         </svg>
         <p className="text-sm font-body text-sun-dark">
-          <span className="font-semibold">Draft — pending internal review.</span> This content reflects current thinking but has not yet been formally approved. Please check with Ian Cook before using in external communications.
+          <span className="font-semibold">Work in progress.</span> This content is being finalised. Please check with Ian Cook before using in external communications.
         </p>
       </div>
 
@@ -108,35 +105,6 @@ export default function BrandVoicePage() {
               <p className="font-body text-sm text-dark-neutral/70 leading-relaxed">{guidance}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Vocabulary */}
-      <section className="mb-12">
-        <h2 className="font-heading text-2xl text-dark-neutral mb-6">Vocabulary</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-white rounded-2xl border border-black/5 p-6 shadow-sm">
-            <p className="text-[10px] uppercase tracking-widest font-body text-dark-neutral/30 mb-4">Use these</p>
-            <ul className="space-y-2">
-              {voice.preferredPhrases.map((phrase) => (
-                <li key={phrase} className="flex items-start gap-2">
-                  <span className="text-sea-blue-mid/40 text-xs mt-0.5 shrink-0">—</span>
-                  <span className="font-body text-sm text-dark-neutral">{phrase}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="bg-white rounded-2xl border border-black/5 p-6 shadow-sm">
-            <p className="text-[10px] uppercase tracking-widest font-body text-dark-neutral/30 mb-4">Avoid these</p>
-            <ul className="space-y-2">
-              {voice.avoidPhrases.map((phrase) => (
-                <li key={phrase} className="flex items-start gap-2">
-                  <span className="text-dark-neutral/20 text-xs mt-0.5 shrink-0">—</span>
-                  <span className="font-body text-sm text-dark-neutral/40 line-through">{phrase}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </section>
 
