@@ -335,6 +335,7 @@ export default function BrandAgent() {
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const lastInspiredIndex = useRef<number>(-1);
 
   const isEmpty = messages.length === 0;
 
@@ -405,8 +406,12 @@ export default function BrandAgent() {
   };
 
   const getInspired = () => {
-    const random = INSPIRED_QUESTIONS[Math.floor(Math.random() * INSPIRED_QUESTIONS.length)];
-    setInput(random);
+    let index: number;
+    do {
+      index = Math.floor(Math.random() * INSPIRED_QUESTIONS.length);
+    } while (index === lastInspiredIndex.current && INSPIRED_QUESTIONS.length > 1);
+    lastInspiredIndex.current = index;
+    setInput(INSPIRED_QUESTIONS[index]);
     inputRef.current?.focus();
   };
 
