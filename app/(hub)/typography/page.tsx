@@ -34,7 +34,7 @@ export default function TypographyPage() {
         <div className="bg-white rounded-2xl border border-black/5 shadow-sm overflow-hidden">
           <div className="bg-sea-blue-dark p-10">
             <p className="font-heading text-white text-5xl leading-none mb-2">Aa</p>
-            <p className="font-heading text-white/60 text-xl mt-4">
+            <p className="font-heading text-white text-xl mt-4">
               ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />
               abcdefghijklmnopqrstuvwxyz<br />
               0123456789 !@#$%&
