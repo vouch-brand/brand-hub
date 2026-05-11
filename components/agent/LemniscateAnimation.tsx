@@ -6,40 +6,37 @@ import lottie, { AnimationItem } from "lottie-web";
 const FPS = 12;
 const FRAME_DURATION = 1000 / FPS;
 
+// Playback sequence:
+// 1. Play frames 0–22 once
+// 2. Pause 1s
+// 3. Play frames 22–48 once
+// 4. Pause 1s
+// 5. Loop steps 3–4 indefinitely
+
 export default function LemniscateAnimation({ className = "w-[200px]" }: { className?: string }) {
-  const idleContainerRef = useRef<HTMLDivElement>(null);
-  const workingContainerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const animRef = useRef<AnimationItem | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const workingReadyRef = useRef(false);
 
   useEffect(() => {
-    const idleContainer = idleContainerRef.current;
-    const workingContainer = workingContainerRef.current;
-    if (!idleContainer || !workingContainer) return;
+    if (!containerRef.current) return;
 
-    const idleAnim = lottie.loadAnimation({
-      container: idleContainer,
+    const anim = lottie.loadAnimation({
+      container: containerRef.current,
       renderer: "svg",
       loop: false,
       autoplay: false,
       path: "/assets/Mask_attempt_2_fixed.json",
     });
-
-    const workingAnim = lottie.loadAnimation({
-      container: workingContainer,
-      renderer: "svg",
-      loop: false,
-      autoplay: false,
-      path: "/assets/lemniscate-loop-working.json",
-    });
+    animRef.current = anim;
 
     const clearTicker = () => {
       if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null; }
       if (timeoutRef.current) { clearTimeout(timeoutRef.current); timeoutRef.current = null; }
     };
 
-    const playRange = (anim: AnimationItem, from: number, to: number, onComplete: () => void) => {
+    const playRange = (from: number, to: number, frameDuration: number, onComplete: () => void) => {
       clearTicker();
       let frame = from;
       anim.goToAndStop(frame, true);
@@ -50,78 +47,58 @@ export default function LemniscateAnimation({ className = "w-[200px]" }: { class
           clearTicker();
           onComplete();
         }
-      }, FRAME_DURATION);
-    };
-
-    const loopIdleSegment = () => {
-      playRange(idleAnim, 22, 48, () => {
-        timeoutRef.current = setTimeout(loopIdleSegment, 1000);
-      });
-    };
-
-    const startIdleSequence = () => {
-      idleContainer.style.display = "block";
-      workingContainer.style.display = "none";
-      playRange(idleAnim, 0, 22, () => {
-        timeoutRef.current = setTimeout(loopIdleSegment, 1000);
-      });
+      }, frameDuration);
     };
 
     const loopWorking = () => {
-      playRange(workingAnim, 21, 56, loopWorking);
+      playRange(22, 48, FRAME_DURATION, loopWorking);
     };
 
-    const startWorking = () => {
-      if (!workingReadyRef.current) {
-        // Working animation not parsed yet — retry shortly
-        timeoutRef.current = setTimeout(startWorking, 50);
-        return;
-      }
-      idleContainer.style.display = "none";
-      workingContainer.style.display = "block";
-      clearTicker();
-      loopWorking();
+    const loopSegment = () => {
+      playRange(22, 48, FRAME_DURATION, () => {
+        timeoutRef.current = setTimeout(loopSegment, 1000);
+      });
     };
 
-    workingAnim.addEventListener("DOMLoaded", () => {
-      workingReadyRef.current = true;
-    });
+    const startSequence = () => {
+      playRange(0, 22, FRAME_DURATION, () => {
+        timeoutRef.current = setTimeout(loopSegment, 1000);
+      });
+    };
 
-    // When idle animation is ready, check which state we're in
-    idleAnim.addEventListener("DOMLoaded", () => {
+    anim.addEventListener("DOMLoaded", () => {
       if (document.body.classList.contains("agent-working")) {
-        startWorking();
+        loopWorking();
       } else {
-        startIdleSequence();
+        startSequence();
       }
     });
 
     const observer = new MutationObserver(() => {
       if (document.body.classList.contains("agent-working")) {
-        startWorking();
+        clearTicker();
+        loopWorking();
       } else {
         clearTicker();
-        startIdleSequence();
+        startSequence();
       }
     });
 
     observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
 
-    // Hide working container until needed
-    workingContainer.style.display = "none";
-
     return () => {
       clearTicker();
       observer.disconnect();
-      idleAnim.destroy();
-      workingAnim.destroy();
+      anim.destroy();
     };
   }, []);
 
   return (
-    <div className={className} style={{ position: "relative", aspectRatio: "1080/490" }} aria-hidden="true">
-      <div ref={idleContainerRef} style={{ position: "absolute", inset: 0 }} />
-      <div ref={workingContainerRef} style={{ position: "absolute", inset: 0 }} />
-    </div>
+    <div
+      ref={containerRef}
+      className={className}
+      style={{ aspectRatio: "1080/490" }}
+      aria-hidden="true"
+    />
   );
 }
