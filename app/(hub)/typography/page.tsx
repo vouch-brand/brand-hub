@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
+import { Source_Serif_4, Roboto } from "next/font/google";
 import PageHeader from "@/components/ui/PageHeader";
 import PageNavigation from "@/components/ui/PageNavigation";
 import { brand } from "@/content/brand.config";
+
+const sourceSerif4 = Source_Serif_4({ subsets: ["latin"], weight: ["600"] });
+const roboto = Roboto({ subsets: ["latin"], weight: ["500"] });
 
 export const metadata: Metadata = { title: "Typography — Vouch Brand Hub" };
 
@@ -187,12 +191,12 @@ export default function TypographyPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-white rounded-xl border border-black/5 p-5 shadow-sm">
             <p className="text-[10px] uppercase tracking-widest font-body text-dark-neutral/30 mb-1">Martina Plantijn alternative</p>
-            <p className="font-body font-semibold text-dark-neutral text-base">Source Serif 4</p>
+            <p className={`${sourceSerif4.className} font-semibold text-dark-neutral text-base`}>Source Serif 4</p>
             <p className="text-xs text-dark-neutral/40 font-body mt-1">Available on Google Fonts — use for headings in documents</p>
           </div>
           <div className="bg-white rounded-xl border border-black/5 p-5 shadow-sm">
             <p className="text-[10px] uppercase tracking-widest font-body text-dark-neutral/30 mb-1">Inter alternative</p>
-            <p className="font-body font-semibold text-dark-neutral text-base">Roboto</p>
+            <p className={`${roboto.className} font-semibold text-dark-neutral text-base`}>Roboto</p>
             <p className="text-xs text-dark-neutral/40 font-body mt-1">Available on Google Fonts — use for body and UI copy in documents</p>
           </div>
         </div>
