@@ -6,16 +6,12 @@ import lottie, { AnimationItem } from "lottie-web";
 const FPS = 12;
 const FRAME_DURATION = 1000 / FPS;
 
-// Idle animation (Mask_attempt_2_fixed.json):
-//   Frames 0–22 once, pause 1s, then loop frames 22–48 with 1s pauses
-// Working animation (lemniscate-loop-working.json):
-//   Loop frames 21–56 continuously at 12fps
-
 export default function LemniscateAnimation({ className = "w-[200px]" }: { className?: string }) {
   const idleContainerRef = useRef<HTMLDivElement>(null);
   const workingContainerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const workingReadyRef = useRef(false);
 
   useEffect(() => {
     const idleContainer = idleContainerRef.current;
@@ -43,7 +39,7 @@ export default function LemniscateAnimation({ className = "w-[200px]" }: { class
       if (timeoutRef.current) { clearTimeout(timeoutRef.current); timeoutRef.current = null; }
     };
 
-    const playRange = (anim: AnimationItem, from: number, to: number, frameDuration: number, onComplete: () => void) => {
+    const playRange = (anim: AnimationItem, from: number, to: number, onComplete: () => void) => {
       clearTicker();
       let frame = from;
       anim.goToAndStop(frame, true);
@@ -54,55 +50,65 @@ export default function LemniscateAnimation({ className = "w-[200px]" }: { class
           clearTicker();
           onComplete();
         }
-      }, frameDuration);
+      }, FRAME_DURATION);
     };
 
     const loopIdleSegment = () => {
-      playRange(idleAnim, 22, 48, FRAME_DURATION, () => {
+      playRange(idleAnim, 22, 48, () => {
         timeoutRef.current = setTimeout(loopIdleSegment, 1000);
       });
     };
 
     const startIdleSequence = () => {
-      playRange(idleAnim, 0, 22, FRAME_DURATION, () => {
+      idleContainer.style.display = "block";
+      workingContainer.style.display = "none";
+      playRange(idleAnim, 0, 22, () => {
         timeoutRef.current = setTimeout(loopIdleSegment, 1000);
       });
     };
 
     const loopWorking = () => {
-      playRange(workingAnim, 21, 56, FRAME_DURATION, loopWorking);
+      playRange(workingAnim, 21, 56, loopWorking);
     };
 
-    const showWorking = () => {
+    const startWorking = () => {
+      if (!workingReadyRef.current) {
+        // Working animation not parsed yet — retry shortly
+        timeoutRef.current = setTimeout(startWorking, 50);
+        return;
+      }
       idleContainer.style.display = "none";
       workingContainer.style.display = "block";
       clearTicker();
       loopWorking();
     };
 
-    const showIdle = () => {
-      workingContainer.style.display = "none";
-      idleContainer.style.display = "block";
-      clearTicker();
-      startIdleSequence();
-    };
+    workingAnim.addEventListener("DOMLoaded", () => {
+      workingReadyRef.current = true;
+    });
 
-    // Start hidden; idle shown by default
-    workingContainer.style.display = "none";
-
+    // When idle animation is ready, check which state we're in
     idleAnim.addEventListener("DOMLoaded", () => {
-      startIdleSequence();
+      if (document.body.classList.contains("agent-working")) {
+        startWorking();
+      } else {
+        startIdleSequence();
+      }
     });
 
     const observer = new MutationObserver(() => {
       if (document.body.classList.contains("agent-working")) {
-        showWorking();
+        startWorking();
       } else {
-        showIdle();
+        clearTicker();
+        startIdleSequence();
       }
     });
 
     observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+    // Hide working container until needed
+    workingContainer.style.display = "none";
 
     return () => {
       clearTicker();
@@ -113,9 +119,9 @@ export default function LemniscateAnimation({ className = "w-[200px]" }: { class
   }, []);
 
   return (
-    <div className={className} aria-hidden="true">
-      <div ref={idleContainerRef} style={{ aspectRatio: "1080/490" }} />
-      <div ref={workingContainerRef} style={{ aspectRatio: "1/1" }} />
+    <div className={className} style={{ position: "relative", aspectRatio: "1080/490" }} aria-hidden="true">
+      <div ref={idleContainerRef} style={{ position: "absolute", inset: 0 }} />
+      <div ref={workingContainerRef} style={{ position: "absolute", inset: 0 }} />
     </div>
   );
 }
