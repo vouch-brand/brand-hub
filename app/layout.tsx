@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://brand-hub-git-main-vouch-marketing-projects.vercel.app"),
   title: "Vouch Brand Hub",
   description: "The single source of truth for the Vouch brand — guidelines, assets, voice, and visual identity.",
   icons: {
