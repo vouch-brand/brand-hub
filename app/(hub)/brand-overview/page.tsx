@@ -25,9 +25,20 @@ export default function BrandOverviewPage() {
           <p className="font-body text-dark-neutral/70 text-sm leading-relaxed max-w-2xl mb-3">
             Your employees have great stories. Getting them to share is the hard part. Vouch makes it effortless.
           </p>
-          <p className="font-body text-dark-neutral/70 text-sm leading-relaxed max-w-2xl">
+          <p className="font-body text-dark-neutral/70 text-sm leading-relaxed max-w-2xl mb-6">
             {brand.description}
           </p>
+          <a
+            href="https://www.vouchfor.com/about"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-sm font-body text-sea-blue-mid hover:underline"
+          >
+            Read the Vouch story
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2.5 9.5l7-7M4 2.5h5.5V8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[
