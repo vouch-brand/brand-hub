@@ -11,14 +11,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Vouch Brand Hub",
     description: "The single source of truth for the Vouch brand — guidelines, assets, voice, and visual identity.",
-    images: [{ url: "/assets/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/assets/og-image.jpg", width: 1200, height: 630 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Vouch Brand Hub",
     description: "The single source of truth for the Vouch brand — guidelines, assets, voice, and visual identity.",
-    images: ["/assets/og-image.png"],
+    images: ["/assets/og-image.jpg"],
   },
 };
 
