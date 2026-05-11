@@ -40,9 +40,9 @@ function generateHTML(name: string, title: string, phone: string, banner: "sand"
 }
 
 export default function BrandApplicationPage() {
-  const [name, setName] = useState("Ian Cook");
-  const [title, setTitle] = useState("Creative Lead");
-  const [phone, setPhone] = useState("+61 406 188 601");
+  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
+  const [phone, setPhone] = useState("");
   const [banner, setBanner] = useState<"sand" | "blue">("sand");
   const [copied, setCopied] = useState(false);
   const [lightbox, setLightbox] = useState<string | null>(null);

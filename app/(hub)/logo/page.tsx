@@ -208,22 +208,6 @@ export default function LogoPage() {
         </div>
       </section>
 
-      {/* Download All */}
-      <section className="mb-12">
-        <div className="bg-sea-blue-dark rounded-2xl p-8 flex items-center justify-between">
-          <div>
-            <h3 className="font-heading text-2xl text-white mb-1">Download All Logo Files</h3>
-            <p className="text-sm text-white/50 font-body">SVG and PNG variants — all three colourways</p>
-          </div>
-          <a
-            href="/assets/logo/vouch-logo-pack.zip"
-            download
-            className="px-6 py-3 rounded-xl border border-white/20 text-white text-sm font-body font-medium hover:bg-white/10 transition-all"
-          >
-            Download ZIP
-          </a>
-        </div>
-      </section>
 
       <PageNavigation currentHref="/logo" />
     </div>

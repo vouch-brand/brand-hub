@@ -19,13 +19,16 @@ const CATEGORIES: Category[] = [
   {
     label: "Logos",
     description: "All approved logo variants — blue, dark blue, and reversed.",
-    meta: "SVG · 3 files",
+    meta: "SVG + PNG · 6 files",
     action: "zip",
     zipName: "vouch-logos.zip",
     files: [
       { path: "/assets/logo/Vouch blue.svg", name: "Vouch blue.svg" },
       { path: "/assets/logo/Vouch dark blue.svg", name: "Vouch dark blue.svg" },
       { path: "/assets/logo/Vouch not white.svg", name: "Vouch not white.svg" },
+      { path: "/assets/logo/Vouch blue.png", name: "Vouch blue.png" },
+      { path: "/assets/logo/Vouch dark blue.png", name: "Vouch dark blue.png" },
+      { path: "/assets/logo/Vouch not white.png", name: "Vouch not white.png" },
     ],
   },
   {
