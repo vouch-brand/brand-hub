@@ -3,9 +3,21 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Vouch Brand Hub",
-  description: "The central source of truth for Vouch brand guidelines, assets, and Vouch Flow.",
+  description: "The single source of truth for the Vouch brand — guidelines, assets, voice, and visual identity.",
   icons: {
     icon: "/favicon.png",
+  },
+  openGraph: {
+    title: "Vouch Brand Hub",
+    description: "The single source of truth for the Vouch brand — guidelines, assets, voice, and visual identity.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vouch Brand Hub",
+    description: "The single source of truth for the Vouch brand — guidelines, assets, voice, and visual identity.",
+    images: ["/og-image.png"],
   },
 };
 
