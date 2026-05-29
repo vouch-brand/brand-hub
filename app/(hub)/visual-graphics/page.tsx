@@ -57,6 +57,7 @@ const IMAGERY = [
 
 function formatName(filename: string): string {
   return filename
+    .replace(/-no_bg\w*$/i, " No Background")
     .replace(/_bg$/, "")
     .replace(/[-_]/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase())
