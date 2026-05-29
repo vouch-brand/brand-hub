@@ -38,6 +38,21 @@ const IMAGERY = [
   "vouch-recruiter-inmail",
   "vouch-recruiter-linkedin-inmail",
   "vouch-recruiter-personalised-outreach",
+  "Advocacy",
+  "Advocacy-no_bg",
+  "Content",
+  "Content-no_bg",
+  "Recruiter",
+  "Recruiter-no_bgr",
+  "Agents 1",
+  "Agents 2",
+  "Agents 3",
+  "Ask Vouch - Draft content",
+  "Ask Vouch - Edit through prompts",
+  "Ask Vouch - Find the gaps",
+  "Ask Vouch - find the right clips",
+  "vouch mcp",
+  "vouch mcp square",
 ];
 
 function formatName(filename: string): string {
