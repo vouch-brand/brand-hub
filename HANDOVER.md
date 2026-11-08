@@ -199,7 +199,7 @@ Replace the files in `public/assets/logo/` using the same names. For a new varia
 - `app/(hub)/assets/page.tsx`
 - `app/(hub)/brand-voice/page.tsx`
 
-The "Last updated: May 2026 — v.1" label is typed by hand in two places in `Sidebar.tsx`.
+The "Last updated November 2026, version 1.1" label is typed by hand in two places in `Sidebar.tsx`.
 
 ---
 
