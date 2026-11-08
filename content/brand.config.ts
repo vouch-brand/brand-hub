@@ -102,7 +102,7 @@ export const brand = {
       name: "Inter",
       role: "Body text, UI elements, supporting copy",
       weights: ["Regular", "Medium", "SemiBold"],
-      file: "/assets/fonts/Inter/InterVariable.woff2",
+      file: "/assets/fonts/Inter/WOFF 2/InterVariable.woff2",
       googleFallback: "Roboto",
       systemFallback: "Arial, sans-serif",
     },
