@@ -19,8 +19,9 @@ A web app that serves as a company's single source of truth for brand guidelines
 - **Next.js 14** (App Router, TypeScript)
 - **Tailwind CSS** with custom brand colour tokens
 - **Claude API** (Anthropic) — streaming, via `/app/api/agent/route.ts`
-- **Lottie** (`lottie-react`) — installed for Flow animation, not yet wired to files
-- No authentication — fully public
+- **Lottie** (`lottie-web`) — plays the Flow infinity animation
+- **Vercel Analytics** — enabled in the root layout
+- **Shared-password access** — one password for everyone, set by `HUB_PASSWORD`, enforced in `middleware.ts`
 
 ---
 
@@ -28,7 +29,8 @@ A web app that serves as a company's single source of truth for brand guidelines
 
 ```
 app/
-  layout.tsx              — Root layout (no auth, no providers)
+  layout.tsx              — Root layout (site metadata, Vercel Analytics)
+  login/page.tsx          — Password screen
   globals.css             — Fonts, grain texture, CSS variables, scrollbar
   (hub)/
     layout.tsx            — Hub shell: sidebar + main content area
@@ -45,11 +47,14 @@ app/
     assets/page.tsx            — "Packaged Assets" in the UI
   api/
     agent/route.ts        — Claude API streaming endpoint (system prompt lives here)
+    auth/route.ts         — Checks the password and sets the login cookie
+
+middleware.ts             — Redirects to /login unless the login cookie is valid
 
 components/
   agent/
     BrandAgent.tsx        — The Flow chat interface (home page)
-    AgentAnimation.tsx    — Three-state Lottie animation (idle/active/complete)
+    LemniscateAnimation.tsx — Infinity animation (home page, chat, login)
   sidebar/
     Sidebar.tsx           — Left nav, collapse toggle, section grouping
   ui/
@@ -62,12 +67,17 @@ content/
   brand.config.ts         — All brand data: colours, typography, logo, voice, values
   nav.ts                  — Sequential page order (drives PageNavigation)
 
+docs/                     — Reference documents (Google Slides theme guide)
+
 public/assets/            — All static assets served to the browser
+  brand-in-action/        — Examples shown on the Brand Application page
+  email-sig/              — Email signature banners
   fonts/
+  icons/                  — SVG icons, with PNG versions in icons/png/
   images/
   logo/
   logo-usage/
-  photos/
+  Photos/
   section-icons/          — Small icons used in the sidebar nav
 ```
 
@@ -101,13 +111,12 @@ Two font families, set as Tailwind utility classes:
 
 - `font-heading` — Martina Plantijn (serif). Use for page titles, section headings, display text.
 - `font-body` — Inter (sans-serif). Use for all body copy, UI labels, captions.
-- `font-mono` — Geist Mono. Use for code, technical specs.
 
 Fonts are self-hosted in `/public/assets/fonts/` and loaded via `@font-face` in `globals.css`. To swap fonts: add new WOFF2 files, update `globals.css` font-face declarations, and update the `fontFamily` in `tailwind.config.ts`.
 
 ### Spacing & layout
 
-Pages use `px-10 py-10 max-w-5xl` as a standard wrapper. Cards use `bg-white rounded-2xl border border-black/5 p-6 shadow-sm`. Sections are separated with `mb-12`.
+Pages use `px-4 py-6 md:px-10 md:py-10 max-w-5xl` as a standard wrapper. Cards use `bg-white rounded-2xl border border-black/5 p-6 shadow-sm`. Sections are separated with `mb-12`.
 
 ---
 
@@ -139,13 +148,15 @@ Defines the sequential order of hub pages — used by `PageNavigation` to render
 
 Flow is the AI chat interface on the home page. It knows the brand by way of a detailed system prompt.
 
-**System prompt:** `app/api/agent/route.ts` — this is where all brand knowledge is injected into the Claude API call. When you update brand content, update the system prompt too so Flow's answers stay accurate.
+**System prompt:** `app/api/agent/route.ts` — this is where all brand knowledge is injected into the Claude API call. The whole of `content/brand.config.ts` is included automatically, but the rest of the prompt is hand-written, including its asset lists. When you add assets or change guidance, update the system prompt too so Flow's answers stay accurate. The model is set in the `POST` handler in the same file.
 
-**Chat component:** `components/agent/BrandAgent.tsx` — handles the empty state (infinity mark + copy + input + chips), the active chat state (message thread), and streaming responses. It also renders structured responses — colours, logos, fonts, and images — as visual cards rather than plain text.
+**Chat component:** `components/agent/BrandAgent.tsx` — handles the empty state (infinity mark + copy + input + "Get inspired"), the active chat state (message thread), and streaming responses. It also renders structured responses — colours, logos, fonts, icons, and images — as visual cards rather than plain text.
 
-**Animation:** `components/agent/AgentAnimation.tsx` — set up for three Lottie states (idle, active, complete). Currently falls back to a placeholder icon. To activate: add three Lottie JSON files to `/public/assets/` named `agent-idle.json`, `agent-active.json`, `agent-complete.json`, then uncomment the three import lines at the top of `AgentAnimation.tsx`.
+**Licensed font:** Flow must not offer Martina Plantijn downloads. It returns that font with an empty `variants` list, which renders a "Request access" link.
 
-**Prompt chips** — the four quick-start prompts on the home page are defined in `BrandAgent.tsx` as the `PROMPT_CHIPS` array.
+**Animation:** `components/agent/LemniscateAnimation.tsx` — plays `/public/assets/Mask_attempt_2_fixed.json` with `lottie-web`.
+
+**Get inspired** — the example questions behind the "Get inspired" link are defined in `BrandAgent.tsx` as the `INSPIRED_QUESTIONS` array.
 
 ---
 
@@ -159,7 +170,7 @@ import PageNavigation from "@/components/ui/PageNavigation";
 
 export default function MyPage() {
   return (
-    <div className="px-10 py-10 max-w-5xl">
+    <div className="px-4 py-6 md:px-10 md:py-10 max-w-5xl">
       <PageHeader title="Page Title" description="One-line description." />
 
       <section className="mb-12">
@@ -196,13 +207,15 @@ The sidebar has a collapse toggle. Active state is determined by comparing `path
 All static files live in `/public/assets/`. They're referenced with root-relative paths (e.g. `/assets/logo/Vouch blue.svg`). Never import assets from `public/` using JS imports — always use string paths.
 
 Key folders:
-- `fonts/` — WOFF2 files for Martina Plantijn and Inter
+- `fonts/` — Martina Plantijn and Inter (Inter's web fonts are in `fonts/Inter/WOFF 2/`)
 - `logo/` — SVG and PNG logo variants
 - `logo-usage/` — clear space diagram and misuse examples
 - `section-icons/` — small icons for the sidebar
 - `images/Backgrounds/` — brand background textures (WebP + PNG)
 - `images/Imagery/` — product screenshot imagery (WebP + PNG)
-- `Photos/` — photography assets (WebP + PNG)
+- `Photos/` — photography assets (WebP + PNG). The capital P matters on Vercel.
+
+Everything under `/assets` is served without the password, because the login page and the site's fonts depend on it. Don't put confidential files there.
 
 ---
 
@@ -210,15 +223,18 @@ Key folders:
 
 Hosted on Vercel. Every push to `main` triggers a redeploy.
 
-Required environment variable:
-- `ANTHROPIC_API_KEY` — your Anthropic API key (set in Vercel project settings)
+Required environment variables (set in Vercel project settings):
+- `ANTHROPIC_API_KEY` — your Anthropic API key
+- `HUB_PASSWORD` — the shared password for the hub. Changing it signs everyone out.
 
 To run locally:
 ```bash
 npm install
-# create .env.local with ANTHROPIC_API_KEY=your_key
+# create .env.local with ANTHROPIC_API_KEY=your_key and HUB_PASSWORD=your_password
 npm run dev
 ```
+
+Never commit `.env.local` or include it in a copy of this folder.
 
 ---
 
@@ -242,7 +258,7 @@ Claude Code can handle all of this — just provide the brand guidelines (PDF, U
 ## Conventions
 
 - **No emojis** in UI copy or code comments
-- **No authentication** — the hub is intentionally public
+- **Shared password only** — there are no individual accounts
 - Use `&apos;` not `'` in JSX text, `&ldquo;`/`&rdquo;` for curly quotes
 - Always run `npx tsc --noEmit` before pushing to catch type errors
 - Tailwind utility classes only — no inline styles except for specific values Tailwind can't express (e.g. `style={{ height: 48 }}`)

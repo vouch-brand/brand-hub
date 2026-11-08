@@ -51,7 +51,7 @@ const CATEGORIES: Category[] = [
   },
   {
     label: "Icons",
-    description: "The full Vouch icon library — 42 purpose-built SVGs including brand motifs.",
+    description: "The full Vouch icon library — 44 purpose-built SVGs including brand motifs.",
     meta: "SVG · 44 files",
     action: "zip",
     zipName: "vouch-icons.zip",
@@ -120,7 +120,7 @@ const CATEGORIES: Category[] = [
   {
     label: "Brand imagery",
     description: "Product screenshots and UI imagery for use in presentations, decks, and marketing materials.",
-    meta: "PNG · 25 files",
+    meta: "PNG · 24 files",
     action: "zip",
     zipName: "vouch-brand-imagery.zip",
     files: [

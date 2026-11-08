@@ -94,7 +94,6 @@ export const brand = {
       name: "Martina Plantijn",
       role: "Headings, key messaging, display text",
       weights: ["Regular", "Bold"],
-      file: "/assets/fonts/Martina Plantijn/WOFF2/martina-plantijn-regular.woff2",
       googleFallback: "Source Serif 4",
       systemFallback: "Georgia, serif",
     },

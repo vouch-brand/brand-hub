@@ -149,6 +149,14 @@ function FontCard({ item }: { item: FontItem }) {
       <div className="p-4">
         {item.role && <p className="text-xs text-dark-neutral/50 font-body mb-3">{item.role}</p>}
         <div className="flex flex-wrap gap-2">
+          {item.variants.length === 0 && (
+            <a
+              href={`mailto:ian@vouchfor.com?subject=${encodeURIComponent(`${item.name} typeface access request`)}`}
+              className="px-3 py-1.5 rounded-lg bg-sea-blue-mid/8 text-sea-blue-mid text-xs font-body hover:bg-sea-blue-mid hover:text-white transition-all"
+            >
+              Request access
+            </a>
+          )}
           {item.variants.map((v) => (
             <a
               key={v.file}

@@ -93,7 +93,7 @@ export default function TypographyPage() {
               download
               className="shrink-0 px-4 py-2 rounded-lg border border-sea-blue-mid/30 text-sea-blue-mid text-xs font-body font-medium hover:bg-sea-blue-mid hover:text-white transition-all"
             >
-              Download .otf
+              Download .woff2
             </a>
           </div>
         </div>
